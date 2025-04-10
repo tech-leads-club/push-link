@@ -4,8 +4,6 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev:chrome": "vite build --config vite.config.chrome.ts --mode development",
-    "dev:firefox": "vite build --config vite.config.firefox.ts --mode development",
     "build:chrome": "tsc -b && vite build --config vite.config.chrome.ts",
     "build:firefox": "tsc -b && vite build --config vite.config.firefox.ts",
     "lint": "eslint .",

@@ -156,7 +156,7 @@ export async function notifyUserLoggedIn(): Promise<UserLoggedInResponse> {
 export async function handleTabUpdate(
   tabId: number,
   changeInfo: browser.Tabs.OnUpdatedChangeInfoType,
-  tab: browser.Tabs.Tab
+  _tab: browser.Tabs.Tab
 ): Promise<void> {
   if (changeInfo.status === "complete" ) {
     // && isTargetWebsite(tab.url)

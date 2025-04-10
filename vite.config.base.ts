@@ -26,9 +26,6 @@ export default defineConfig({
     }),
   ],
   publicDir: resolve(__dirname, "public"),
-  server: {
-    open: "/popup-local.html",
-  },
   build: {
     rollupOptions: {
       input: {
