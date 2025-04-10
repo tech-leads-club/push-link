@@ -1,0 +1,66 @@
+:root {
+    --color-text-black: #1E1E2A;
+    --color-background: #1E1E2A;
+    --color-surface: #2A2A3C;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #C4C4D0;
+    --color-primary: #3182CE;
+    --color-primary-hover: #63B3ED;
+    --color-purple: #9F7AEA;
+    --color-pink: #ED64A6;
+    --color-green: #48BB78;
+    --color-yellow: #ECC94B;
+    --color-overlay-black: rgba(0, 0, 0, 0.5);
+}
+
+body {
+    min-height: 100%;
+    width: 100vw;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar {
+    background-color: #807fba/80;
+    color: white;
+    font-size: x-large;
+    border-bottom: 1px gainsboro solid;
+    margin-bottom: 20px;
+}
+
+.inner-navbar {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    margin: auto;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: 700;
+    font-size: x-large;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.menu {
+    display: flex;
+    gap: 10px;
+}
+
+.menu>* {
+    border: 2px solid white;
+    font-size: x-large;
+    border-radius: 7px;
+    padding: 5px 10px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.menu>*:hover {
+    background-color: white;
+    color: var(--color-text-black);
+}

@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Tech Leads Club - Compartilhamento de Links",
+  "description": "Essa extensão foi criada para facilitar o compartilhamento de links na comunidade Tech Leads Club",
+  "version": "1.0.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "techleads@techleads.club"
+    }
+  },
+  "host_permissions": [
+    "https://www.techleads.club/*",
+    "https://app.circle.so/api/*"
+  ],
+  "permissions": ["activeTab", "storage", "tabs", "cookies", "scripting"],
+  "background": {
+    "service_worker": "src/background.ts",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "js": ["src/content.ts"]
+    }
+  ],
+  "options_page": "options.html",
+  "icons": {
+    "16": "public/16.png",
+    "32": "public/32.png",
+    "48": "public/48.png",
+    "192": "public/192.png"
+  }  
+}
