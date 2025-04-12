@@ -1,1 +1,0 @@
-{"root":["./src/background.ts","./src/content.ts","./src/helper.ts","./src/main.tsx","./src/optionslocal.tsx","./src/vite-env.d.ts","./src/extension/options/index.tsx","./src/extension/popup/index.tsx","./src/extension/popup/login.tsx","./src/extension/popup/share-form.tsx"],"version":"5.8.3"}
