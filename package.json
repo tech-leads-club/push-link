@@ -4,9 +4,9 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "build:chrome": "tsc && vite build --config vite.config.chrome.ts",
+    "build:chrome-edge": "tsc && vite build --config vite.config.chrome-edge.ts",
     "build:firefox": "tsc && vite build --config vite.config.firefox.ts",
-    "dev:chrome": "tsc && vite build --watch --config vite.config.chrome.ts",
+    "dev:chrome-edge": "tsc && vite build --watch --config vite.config.chrome-edge.ts",
     "dev:firefox": "tsc && vite build --watch --config vite.config.firefox.ts",
     "lint": "eslint .",
     "preview": "vite preview"
