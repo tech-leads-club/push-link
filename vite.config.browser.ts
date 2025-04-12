@@ -3,13 +3,13 @@ import { defineConfig, mergeConfig } from 'vite'
 import baseConfig, { baseManifest } from './vite.config.base'
 
 interface BrowserConfigOptions {
-  browser: 'chrome' | 'firefox'
+  browser: 'chrome-edge' | 'firefox'
   outDir: string
 }
 
 export function createBrowserConfig({ browser, outDir }: BrowserConfigOptions) {
   const background =
-    browser === 'chrome'
+    browser === 'chrome-edge'
       ? { service_worker: 'src/background.ts', type: 'module' }
       : { scripts: ['src/background.ts'], type: 'module' }
 
@@ -19,7 +19,7 @@ export function createBrowserConfig({ browser, outDir }: BrowserConfigOptions) {
       plugins: [
         crx({
           manifest: { ...baseManifest, background } as ManifestV3Export,
-          browser,
+          browser: browser === 'chrome-edge' ? 'chrome' : browser,
           contentScripts: { injectCss: true },
         }),
       ],
