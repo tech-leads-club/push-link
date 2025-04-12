@@ -8,10 +8,7 @@
       "id": "techleads@techleads.club"
     }
   },
-  "host_permissions": [
-    "https://www.techleads.club/*",
-    "https://app.circle.so/api/*"
-  ],
+  "host_permissions": ["https://www.techleads.club/*", "https://app.circle.so/api/*"],
   "permissions": ["activeTab", "storage", "tabs", "cookies", "scripting"],
   "background": {
     "service_worker": "src/background.ts",
@@ -32,5 +29,5 @@
     "32": "public/32.png",
     "48": "public/48.png",
     "192": "public/192.png"
-  }  
+  }
 }
