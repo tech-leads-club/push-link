@@ -1,48 +1,87 @@
-# Tech Leads Club - Link Push
+# 🚀 Tech Leads Club - Link Push
 
-## Sobre o Projeto
+Extensão de navegador para facilitar o compartilhamento de links na comunidade **Tech Leads Club**.
 
-Esta é uma extensão de navegador criada para facilitar o compartilhamento de links dentro da comunidade Tech Leads Club.
-A extensão permite que os membros compartilhem links relevantes diretamente pelo navegador, agilizando a troca de informações e discussões na comunidade.
+## ✨ Funcionalidades
 
-## Como Fazer o Build da Extensão
+- Compartilhe links relevantes diretamente do navegador com poucos cliques.
+- Agilize a troca de informações e discussões na comunidade.
+- Interface simples e intuitiva.
+- Compatível com Google Chrome, Microsoft Edge e Mozilla Firefox.
 
-Este projeto utiliza `yarn` como gerenciador de pacotes e `vite` para o build. Siga os passos abaixo para compilar a extensão:
+## 🛠️ Instalação e Build
 
-1.  **Instale as dependências:**
-    ```bash
-    yarn install
-    ```
+Este projeto utiliza [`yarn`](https://yarnpkg.com/) ou [`npm`](https://www.npmjs.com/) como gerenciador de pacotes e [`Vite`](https://vitejs.dev/) para build.
 
-2.  **Compile a extensão para o navegador desejado:**
+### 1. Instale as dependências
 
-    *   **Para Google Chrome:**
-        ```bash
-        yarn build:chrome
-        ```
-        Os arquivos compilados estarão na pasta `dist_chrome`.
+```bash
+yarn install
+npm install
+```
 
-    *   **Para Mozilla Firefox:**
-        ```bash
-        yarn build:firefox
-        ```
-        Os arquivos compilados estarão na pasta `dist_firefox`.
+### 2. Compile para o navegador desejado
 
-## Como Instalar a Extensão (Modo Desenvolvedor)
+**Para Google Chrome/Microsoft Edge:**
 
-Após compilar a extensão, você pode carregá-la no seu navegador em modo desenvolvedor:
+```bash
+yarn build:chrome-edge
+npm run build:chrome-edge
+```
+
+Os arquivos compilados estarão na pasta `dist_chrome`.
+
+**Para Mozilla Firefox:**
+
+```bash
+yarn build:firefox
+npm run build:firefox
+```
+
+Os arquivos compilados estarão na pasta `dist_firefox`.
+
+## 🧑‍💻 Modo de Desenvolvimento
+
+Durante o desenvolvimento, utilize o modo dev para facilitar testes e ver alterações em tempo real. O Vite faz a build automática sempre que você salva um arquivo, tornando o processo muito mais ágil!
+
+**Para Google Chrome/Microsoft Edge:**
+
+```bash
+yarn dev:chrome-edge
+npm run dev:chrome-edge
+```
+
+**Para Mozilla Firefox:**
+
+```bash
+yarn dev:firefox
+npm run dev:firefox
+```
+
+O Vite irá monitorar as alterações e atualizar a build automaticamente.
+
+## 🧩 Como Instalar a Extensão no Navegador (Modo Desenvolvedor)
 
 ### Google Chrome
 
-1.  Abra o Chrome e acesse `chrome://extensions/`.
-2.  Ative o "Modo do desenvolvedor" no canto superior direito.
-3.  Clique em "Carregar sem compactação".
-4.  Selecione a pasta `dist_chrome` gerada no passo de build.
+1. Acesse `chrome://extensions/`.
+2. Ative o **Modo do desenvolvedor** (canto superior direito).
+3. Clique em **Carregar sem compactação**.
+4. Selecione a pasta `dist_chrome_edge`.
+
+### Microsoft Edge
+
+1. Acesse `edge://extensions/`.
+2. Ative o **Modo do desenvolvedor** (menu lateral esquerdo).
+3. Clique em **Carregar sem pacote**.
+4. Selecione a pasta `dist_chrome_edge`.
 
 ### Mozilla Firefox
 
-1.  Abra o Firefox e acesse `about:debugging#/runtime/this-firefox`.
-2.  Clique em "Carregar BCP temporário...".
-3.  Navegue até a pasta `dist_firefox` e selecione o arquivo `manifest.json` dentro dela.
+1. Acesse `about:debugging#/runtime/this-firefox`.
+2. Clique em **Carregar BCP temporário...**.
+3. Selecione o arquivo `manifest.json` dentro da pasta `dist_firefox`.
 
-Agora a extensão deve estar instalada e pronta para uso/teste.
+## 💬 Contribua
+
+Sugestões, melhorias e pull requests são bem-vindos! Sinta-se à vontade para contribuir com o projeto.
