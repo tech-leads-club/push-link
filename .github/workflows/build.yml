@@ -29,6 +29,9 @@ jobs:
       - name: Build Firefox Extension
         run: yarn build:firefox
 
+      - name: Create dist directory
+        run: mkdir -p dist
+
       - name: Zip Chrome/Edge extension
         run: zip -r dist/extension-chrome-edge.zip dist_chrome_edge
 
