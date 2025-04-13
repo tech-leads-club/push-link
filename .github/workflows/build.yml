@@ -45,3 +45,11 @@ jobs:
           path: |
             dist/extension-chrome-edge.zip
             dist/extension-firefox.zip
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/extension-chrome-edge.zip
+            dist/extension-firefox.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
