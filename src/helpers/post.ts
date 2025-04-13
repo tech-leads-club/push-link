@@ -1,11 +1,12 @@
 import { SPACE_ID } from '../constants'
 import type { PostData } from '../types'
 
-export function createPostBody(title: string, note: string, url: string): PostData {
+export function createPostBody(title: string, note: string, url: string, coverImage?: string): PostData {
   return {
     id: null,
     space_id: SPACE_ID,
     name: title,
+    cover_image: coverImage,
     tiptap_body: {
       body: {
         type: 'doc',

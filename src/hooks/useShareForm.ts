@@ -34,7 +34,6 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
     const success = await publishPost({ url, title, note, imageUrl })
 
     if (success) {
-      // Fechar a janela após um delay
       setTimeout(() => {
         window.close()
       }, 1000)

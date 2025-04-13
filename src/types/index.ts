@@ -82,6 +82,35 @@ export interface PostData {
   sample_user_likes_community_members?: unknown[]
 }
 
+export interface CoverImageParams {
+  filename: string
+  content_type: string
+  byte_size: number
+  checksum?: string
+}
+
+export interface DirectUploadResponse {
+  id: number
+  key: string
+  filename: string
+  content_type: string
+  metadata: Record<string, any>
+  byte_size: number
+  checksum: string
+  created_at: string
+  service_name: string
+  attachable_sgid: string
+  signed_id: string
+  direct_upload: {
+    url: string
+    headers: {
+      'Content-Type': string
+      'Content-MD5': string
+      'Content-Disposition': string
+    }
+  }
+}
+
 export interface PublishPostParams {
   url: string
   title: string
