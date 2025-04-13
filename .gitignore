@@ -8,10 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist_chrome
-dist_firefox
-dist-ssr
+dist*
 *.local
 
 # Editor directories and files
@@ -24,3 +21,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript incremental build info
+*.tsbuildinfo
+/.tsbuildinfo

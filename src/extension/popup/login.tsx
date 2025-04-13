@@ -1,11 +1,7 @@
 export const Login = () => {
   return (
     <>
-      <img
-        src="public/logo.png"
-        alt="Tech Leads Club Logo"
-        className="w-[48px] h-auto"
-      />
+      <img src="public/logo.png" alt="Tech Leads Club Logo" className="w-[48px] h-auto" />
 
       <div className="login-container" id="loginContainer">
         <h1 className="m-0 font-sans text-white text-xl">
@@ -21,5 +17,5 @@ export const Login = () => {
         </a>
       </div>
     </>
-  );
-};
+  )
+}
