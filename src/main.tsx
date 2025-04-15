@@ -15,10 +15,10 @@ const root = createRoot(domNode as HTMLElement)
 
 root.render(
   <StrictMode>
-    <PostHogProvider client={posthog}>
-      <div className="bg-gray-900 w-[320px] h-[480px]">
+    <div className="bg-gray-900 w-[320px] h-[480px]">
+      <PostHogProvider client={posthog}>
         <Popup />
-      </div>
-    </PostHogProvider>
+      </PostHogProvider>
+    </div>
   </StrictMode>,
 )
