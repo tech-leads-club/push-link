@@ -83,7 +83,7 @@ export const ShareFormContent = ({
         disabled={isPending}
         className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300 font-medium disabled:opacity-60 disabled:cursor-not-allowed disabled:bg-blue-600"
       >
-        {isPending ? 'Publicando...' : 'Publicar no Tech Leads Club'}
+        {isPending ? 'Publicando...' : 'Publicar'}
       </button>
     </div>
   </>
