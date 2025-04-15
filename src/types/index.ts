@@ -120,6 +120,9 @@ export interface ShareFormState {
   title: string
   note: string
   imageUrl: string
+  isPending: boolean
+  error: string | null
+  isSuccess: boolean
 }
 
 export interface ShareFormActions {
