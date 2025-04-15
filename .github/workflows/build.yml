@@ -33,10 +33,10 @@ jobs:
         run: mkdir -p dist
 
       - name: Zip Chrome/Edge extension
-        run: zip -r dist/extension-chrome-edge.zip dist_chrome_edge
+        run: zip -r dist/extension-chrome-edge.zip dist_chrome_edge/*
 
       - name: Zip Firefox extension
-        run: zip -r dist/extension-firefox.zip dist_firefox
+        run: zip -r dist/extension-firefox.zip dist_firefox/*
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

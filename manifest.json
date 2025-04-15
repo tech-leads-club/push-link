@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Tech Leads Club - Compartilhamento de Links",
+  "name": "TechLeads.club Push Link",
   "description": "Essa extensão foi criada para facilitar o compartilhamento de links na comunidade Tech Leads Club",
   "version": "1.0.0",
   "browser_specific_settings": {
