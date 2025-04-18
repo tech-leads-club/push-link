@@ -1,32 +1,14 @@
-import browser from 'webextension-polyfill'
-import type { GetTokenResponse, InfoRequest, UserLoggedInResponse } from '../types'
-import { showNotification } from './notification.service'
+import { validateCookies } from '../helpers/cookies'
+import type { GetCookieResponse } from '../types'
+import { getAuthCookies } from './cookies.service'
 
-export async function requestAuthToken(): Promise<GetTokenResponse> {
+export async function fetchAuthCookies(): Promise<GetCookieResponse> {
   try {
-    const message: InfoRequest = { action: 'getCookie' }
-    const response = await browser.runtime.sendMessage(message)
-
-    if (!response) {
-      await showNotification('Resposta vazia ao verificar o token', 'error')
-      return { success: false, error: 'Empty response when verifying token' }
-    }
-
-    return response as GetTokenResponse
+    const cookies = await getAuthCookies()
+    if (!validateCookies(cookies)) throw new Error('Cookies de autenticação incompletos ou ausentes')
+    return { success: true, cookies }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
-    await showNotification(`Erro ao verificar token: ${errorMessage}`, 'error')
-    return { success: false, error: errorMessage }
-  }
-}
-
-export async function notifyUserLoggedIn(): Promise<UserLoggedInResponse> {
-  try {
-    const message: InfoRequest = { action: 'userLoggedIn' }
-    return await browser.runtime.sendMessage(message)
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error)
-    await showNotification(`Erro ao enviar mensagem de login: ${errorMessage}`, 'error')
-    return { success: false, error: errorMessage }
+    throw new Error(errorMessage)
   }
 }
