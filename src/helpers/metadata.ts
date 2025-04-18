@@ -5,23 +5,12 @@ import { PageData, PageMetadata } from '../types'
 
 export async function getCurrentPageData(): Promise<PageData | null> {
   try {
-    const tabInfo = await getTabInfo()
-
-    if (tabInfo.error) {
-      await showNotification(tabInfo.error, 'error')
-      return null
-    }
-
-    if (!tabInfo.url) {
-      await showNotification('URL da aba atual não encontrada', 'error')
-      return null
-    }
-
-    const result: PageData = { url: tabInfo.url, title: tabInfo.title ?? '' }
+    const { url, title } = await getTabInfo()
+    const result: PageData = { url, title }
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
 
     if (tabs.length === 0 || !tabs[0].id) {
-      await showNotification('Não foi possível acessar a aba atual', 'warning')
+      await showNotification('Não foi possível acessar a aba atual', 'error')
       return result
     }
 
@@ -45,13 +34,13 @@ export async function getCurrentPageData(): Promise<PageData | null> {
         if (metaImageUrl) result.imageUrl = metaImageUrl
       }
     } catch {
-      await showNotification('Erro ao extrair metadados da página', 'warning')
+      await showNotification('Erro ao extrair metadados da página', 'error')
     }
 
     return result
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
-    await showNotification(`Erro ao carregar dados da página: ${errorMessage}`, 'error')
+    await showNotification(`${errorMessage}`, 'error')
     return null
   }
 }
