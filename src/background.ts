@@ -1,7 +1,6 @@
 import browser from 'webextension-polyfill'
 import { isValidRequest } from './helpers/request'
-import { requestAuthToken } from './services/auth.service'
-import { handleGetCookieRequest } from './services/cookies.service'
+import { fetchAuthCookies } from './services/auth.service'
 import { showNotification } from './services/notification.service'
 import { handleTabUpdate } from './services/tabs.service'
 
@@ -22,15 +21,14 @@ browser.runtime.onMessage.addListener((request: unknown, _sender, sendResponse) 
   ;(async () => {
     try {
       if (isValidRequest(request, 'getCookie')) {
-        await handleGetCookieRequest(sendResponse)
-      } else if (isValidRequest(request, 'getToken')) {
-        const response = await requestAuthToken()
+        const response = await fetchAuthCookies()
         sendResponse(response)
       } else {
-        sendResponse({ error: 'Invalid request' })
+        sendResponse({ success: false, error: 'Invalid request' })
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
+      await showNotification(`Erro interno: ${errorMessage}`, 'error')
       sendResponse({ success: false, error: `Erro interno: ${errorMessage}` })
     }
   })()
