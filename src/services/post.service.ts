@@ -1,16 +1,15 @@
 import axios from 'redaxios'
 import { BASE_URL, SPACE_ID } from '../constants'
-import { createCookieHeader, getStoredCookies, validateCookies } from '../helpers/cookies'
+import { createCookieHeader, validateCookies } from '../helpers/cookies'
 import { createPostBody } from '../helpers/post'
 import type { PublishPostParams } from '../types'
 import { isRedaxiosError } from '../utils/typeguards'
+import { getAuthCookies } from './cookies.service'
 
 export async function publishPost(params: PublishPostParams): Promise<boolean> {
-  if (!params.url || !params.title) {
-    throw new Error('URL e título são obrigatórios')
-  }
+  if (!params.url || !params.title) throw new Error('URL e título são obrigatórios')
 
-  const cookies = await getStoredCookies()
+  const cookies = await getAuthCookies()
 
   if (!validateCookies(cookies)) {
     throw new Error('Cookies não encontrados. Por favor, faça login no site www.techleads.club')
