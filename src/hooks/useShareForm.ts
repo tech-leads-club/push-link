@@ -16,6 +16,7 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
         if (pageData) {
           if (!pageData.url || !pageData.title) {
             dispatch({ type: 'SET_ERROR', error: 'Não foi possível obter os dados da página atual' })
+            return
           }
 
           dispatch({
