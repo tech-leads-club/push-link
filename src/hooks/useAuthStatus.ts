@@ -1,6 +1,7 @@
 import { usePostHog } from 'posthog-js/react'
 import { useEffect, useState } from 'react'
-import { requestAuthToken } from '../services/auth.service'
+import { fetchAuthCookies } from '../services/auth.service'
+import { GetCookieResponse } from '../types'
 
 export function useAuthStatus() {
   const posthog = usePostHog()
@@ -10,7 +11,7 @@ export function useAuthStatus() {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await requestAuthToken()
+        const response: GetCookieResponse = await fetchAuthCookies()
         if (response.success) {
           setIsLoggedIn(true)
           setAuthError(null)
@@ -30,7 +31,7 @@ export function useAuthStatus() {
     }
 
     checkAuthStatus()
-  }, [])
+  }, [posthog])
 
   return { isLoggedIn, authError }
 }
