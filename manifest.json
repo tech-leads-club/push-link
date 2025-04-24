@@ -2,14 +2,22 @@
   "manifest_version": 3,
   "name": "TechLeads.club Push Link",
   "description": "Essa extensão foi criada para facilitar o compartilhamento de links na comunidade Tech Leads Club",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "browser_specific_settings": {
     "gecko": {
       "id": "techleads@techleads.club"
     }
   },
-  "host_permissions": ["https://www.techleads.club/*", "https://app.circle.so/api/*"],
-  "permissions": ["activeTab", "tabs", "cookies", "scripting"],
+  "host_permissions": [
+    "https://www.techleads.club/*",
+    "https://app.circle.so/api/*"
+  ],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "cookies",
+    "scripting"
+  ],
   "background": {
     "service_worker": "src/background.ts",
     "type": "module"
@@ -19,8 +27,14 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
-      "js": ["src/content.ts"]
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
+      ],
+      "js": [
+        "src/content.ts"
+      ]
     }
   ],
   "options_page": "options.html",

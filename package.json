@@ -1,7 +1,7 @@
 {
   "name": "techleadsclub-extension",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "build:chrome-edge": "tsc && vite build --config vite.config.chrome-edge.ts",
