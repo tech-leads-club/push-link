@@ -1,20 +1,12 @@
-export type ToastPosition =
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right'
-  | 'center'
+export type ToastPosition = 'top' | 'center' | 'bottom'
 
 export interface InfoRequest {
   action: string
 }
 
 export interface TabInfoResponse {
-  url?: string
-  title?: string
-  error?: string
+  url: string
+  title: string
 }
 
 export interface GetTokenResponse {
@@ -33,15 +25,8 @@ export interface CookieInfo {
   name: string
 }
 
-export interface UserLoggedInResponse {
-  success: boolean
-  error?: string
-}
-
 export interface StorageCookies {
-  remember_user_token?: string
-  user_session_identifier?: string
-  _circle_session?: string
+  [key: string]: string
 }
 
 export type NotificationType = 'success' | 'error' | 'info' | 'warning'

@@ -1,18 +1,16 @@
 import browser from 'webextension-polyfill'
 import type { TabInfoResponse } from '../types'
-import { notifyUserLoggedIn, requestAuthToken } from './auth.service'
-import { showNotification } from './notification.service'
+import { fetchAuthCookies } from './auth.service'
 
 export async function getTabInfo(): Promise<TabInfoResponse> {
   try {
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
-    if (tabs.length === 0) return { error: 'Nenhuma aba ativa encontrada' }
+    if (tabs.length === 0) throw new Error('Nenhuma aba ativa encontrada')
     const tab = tabs[0]
-    return { url: tab.url, title: tab.title }
+    if (!tab.url) throw new Error('A aba ativa não possui URL')
+    return { url: tab.url, title: tab.title ?? '' }
   } catch (error) {
-    return {
-      error: `Erro ao obter informações da aba: ${error instanceof Error ? error.message : String(error)}`,
-    }
+    throw new Error(`Erro ao obter informações: ${error instanceof Error ? error.message : String(error)}`)
   }
 }
 
@@ -20,21 +18,10 @@ export async function handleTabUpdate(tabId: number, changeInfo: browser.Tabs.On
   if (changeInfo.status !== 'complete') return
   try {
     const tab = await browser.tabs.get(tabId)
-
-    if (!tab.url) {
-      await showNotification('URL da aba não encontrada', 'warning')
-      return
-    }
-
-    const tokenResponse = await requestAuthToken()
-
-    if (!tokenResponse.success) {
-      await showNotification('Falha ao obter token de autenticação', 'error')
-      return
-    }
-
-    await notifyUserLoggedIn()
-  } catch {
-    await showNotification('Erro ao processar atualização da aba', 'error')
+    if (!tab.url) throw new Error('URL da aba não encontrada')
+    const cookieResponse = await fetchAuthCookies()
+    if (!cookieResponse.success) throw new Error('Falha ao obter cookies de autenticação')
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : 'Erro ao processar atualização da aba')
   }
 }

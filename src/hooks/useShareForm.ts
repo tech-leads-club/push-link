@@ -14,6 +14,11 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
         const pageData = await getCurrentPageData()
 
         if (pageData) {
+          if (!pageData.url || !pageData.title) {
+            dispatch({ type: 'SET_ERROR', error: 'Não foi possível obter os dados da página atual' })
+            return
+          }
+
           dispatch({
             type: 'LOAD_PAGE_DATA',
             data: {

@@ -1,9 +1,9 @@
 export const SuccessMessage = () => (
-  <div className="flex flex-col items-center justify-center space-y-4 h-[400px]">
+  <div className="flex flex-col items-center justify-center space-y-6 py-10" style={{ minHeight: '380px' }}>
     <div className="rounded-full bg-green-500 bg-opacity-20 p-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-16 w-16 text-green-500"
+        className="h-12 w-12 text-green-500"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
