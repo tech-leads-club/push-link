@@ -1,11 +1,9 @@
-import { usePostHog } from 'posthog-js/react'
 import { useEffect, useReducer } from 'react'
 import { getCurrentPageData } from '../helpers/metadata'
 import { publishPost } from '../services/post.service'
 import type { ShareFormActions, ShareFormState } from '../types'
 
 export function useShareForm(): [ShareFormState, ShareFormActions] {
-  const posthog = usePostHog()
   const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
@@ -61,7 +59,6 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
         dispatch({ type: 'SET_ERROR', error: 'Falha ao publicar o post' })
       }
     } catch (err) {
-      posthog.captureException(err)
       dispatch({ type: 'SET_ERROR', error: err instanceof Error ? err.message : 'Erro desconhecido' })
     } finally {
       dispatch({ type: 'SET_PENDING', isPending: false })

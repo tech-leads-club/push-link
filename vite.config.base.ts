@@ -23,6 +23,7 @@ export default defineConfig({
         { src: './public/48.png', dest: './public' },
         { src: './public/192.png', dest: './public' },
         { src: './public/logo.png', dest: './public' },
+        { src: './public/array.js', dest: './public' },
       ],
     }),
   ],
