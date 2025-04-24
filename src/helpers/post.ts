@@ -28,23 +28,24 @@ export function createPostBody(title: string, note: string, url: string): PostDa
             ],
           },
           { type: 'paragraph', content: [{ type: 'hardBreak' }] },
-          {
-            type: 'paragraph',
-            content: [
-              { type: 'text', text: 'Publicado via Link Push' },
-              {
-                type: 'text',
-                marks: [
-                  {
-                    type: 'link',
-                    attrs: { href: '', target: '_blank', rel: 'noopener noreferrer nofollow', class: null },
-                  },
-                ],
-                text: 'Saiba mais',
-              },
-            ],
-          },
-          { type: 'paragraph', content: [{ type: 'hardBreak' }] },
+          // TODO: Add links to Chrome Extension Store and Firefox Add-ons
+          // {
+          //   type: 'paragraph',
+          //   content: [
+          //     { type: 'text', text: 'Publicado via Link Push' },
+          //     {
+          //       type: 'text',
+          //       marks: [
+          //         {
+          //           type: 'link',
+          //           attrs: { href: '', target: '_blank', rel: 'noopener noreferrer nofollow', class: null },
+          //         },
+          //       ],
+          //       text: 'Saiba mais',
+          //     },
+          //   ],
+          // },
+          // { type: 'paragraph', content: [{ type: 'hardBreak' }] },
         ],
       },
     },
