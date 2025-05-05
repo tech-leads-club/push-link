@@ -37,7 +37,12 @@ export function createPostBody(title: string, note: string, url: string): PostDa
                 marks: [
                   {
                     type: 'link',
-                    attrs: { href: '', target: '_blank', rel: 'noopener noreferrer nofollow', class: null },
+                    attrs: {
+                      href: 'https://addons.mozilla.org/en-US/firefox/addon/tech-leads-club-push-link/',
+                      target: '_blank',
+                      rel: 'noopener noreferrer nofollow',
+                      class: null,
+                    },
                   },
                 ],
                 text: 'Firefox',
