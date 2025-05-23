@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import { getCurrentPageData } from '../helpers/metadata'
 import { publishPost } from '../services/post.service'
+import { removeMarketingParameters } from '../helpers/url';
 import type { ShareFormActions, ShareFormState } from '../types'
 
 export function useShareForm(): [ShareFormState, ShareFormActions] {
@@ -9,7 +10,11 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
   useEffect(() => {
     const loadPageData = async () => {
       try {
-        const pageData = await getCurrentPageData()
+        let pageData = await getCurrentPageData()
+
+        if (pageData && pageData.url) { // Added null check for pageData and pageData.url
+          pageData.url = removeMarketingParameters(pageData.url); // Clean the URL
+        }
 
         if (pageData) {
           if (!pageData.url || !pageData.title) {
