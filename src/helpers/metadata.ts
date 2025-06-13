@@ -1,12 +1,14 @@
 import browser from 'webextension-polyfill'
 import { showNotification } from '../services/notification.service'
 import { getTabInfo } from '../services/tabs.service'
+import { removeMarketingParams } from './url'
 import { PageData, PageMetadata } from '../types'
 
 export async function getCurrentPageData(): Promise<PageData | null> {
   try {
     const { url, title } = await getTabInfo()
-    const result: PageData = { url, title }
+    const cleanedUrl = removeMarketingParams(url)
+    const result: PageData = { url: cleanedUrl, title }
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
 
     if (tabs.length === 0 || !tabs[0].id) {
