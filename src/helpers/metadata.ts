@@ -40,7 +40,7 @@ export async function getCurrentPageData(): Promise<PageData | null> {
       if (scriptResults && scriptResults.length > 0) {
         const [metadata] = scriptResults
         const metaResult = metadata.result as PageMetadata
-        result.title = getTitle()
+        result.title = metaResult.title || result.title
 
         if (metaResult.ogDescription || metaResult.twitterDescription) {
           result.description = metaResult.ogDescription ?? metaResult.twitterDescription

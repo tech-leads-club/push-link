@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill'
 import { showNotification } from './services/notification.service'
 
-async function initializeContentScript(): Promise<void> {
+export async function initializeContentScript(): Promise<void> {
   try {
     const response = await browser.runtime.sendMessage({ action: 'getCookie' })
     if (!(response && typeof response === 'object' && 'success' in response && response.success)) {
@@ -19,5 +19,3 @@ async function initializeContentScript(): Promise<void> {
     await showNotification(`Erro ao inicializar o content script: ${errorMessage}`, 'error')
   }
 }
-
-initializeContentScript()
