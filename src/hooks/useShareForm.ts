@@ -13,7 +13,15 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
 
         if (pageData) {
           if (!pageData.url || !pageData.title) {
-            dispatch({ type: 'SET_ERROR', error: 'Não foi possível obter os dados da página atual' })
+            dispatch({
+              type: 'LOAD_PAGE_DATA',
+              data: {
+                url: pageData.url || '',
+                title: pageData.title || '',
+                note: '',
+                imageUrl: '',
+              },
+            })
             return
           }
 
@@ -28,7 +36,15 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
           })
         }
       } catch {
-        dispatch({ type: 'SET_ERROR', error: 'Falha ao carregar os dados da página atual' })
+        dispatch({
+          type: 'LOAD_PAGE_DATA',
+          data: {
+            url: '',
+            title: '',
+            note: '',
+            imageUrl: '',
+          },
+        })
       }
     }
 
