@@ -2,23 +2,22 @@ import browser from 'webextension-polyfill'
 import type { TabInfoResponse } from '../types'
 import { fetchAuthCookies } from './auth.service'
 
-const NO_TITLE = 'Sem título'
-
 export async function getTabInfo(): Promise<TabInfoResponse> {
   try {
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
-    if (tabs.length === 0) throw new Error('Nenhuma aba ativa encontrada')
+    if (tabs.length === 0) return { url: '', title: '' }
+
     const tab = tabs[0]
 
-    if (!tab.url) return { url: '', title: NO_TITLE }
+    if (!tab.url) return { url: '', title: tab.title || '' }
 
     if (!tab.url.startsWith('http://') && !tab.url.startsWith('https://')) {
-      return { url: '', title: tab.title ?? NO_TITLE }
+      return { url: '', title: tab.title || '' }
     }
 
-    return { url: tab.url, title: tab.title ?? NO_TITLE }
+    return { url: tab.url, title: tab.title || '' }
   } catch {
-    return { url: '', title: NO_TITLE }
+    return { url: '', title: '' }
   }
 }
 

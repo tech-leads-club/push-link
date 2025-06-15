@@ -81,6 +81,7 @@ export interface PageMetadata {
   twitterDescription?: string
   ogImage?: string
   twitterImage?: string
+  title?: string
 }
 
 export interface PageData {
