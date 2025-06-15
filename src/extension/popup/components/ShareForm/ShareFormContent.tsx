@@ -8,6 +8,8 @@ export const ShareFormContent = ({
   isPending,
   error,
   setNote,
+  setTitle,
+  setUrl,
   handleSubmit,
 }: ShareFormContentProps) => {
   useEffect(() => {
@@ -23,8 +25,36 @@ export const ShareFormContent = ({
       </div>
 
       <div className="w-full space-y-6">
-        <div className="border-b border-gray-700 pb-2">
-          <h2 className="text-sm font-medium text-gray-300">{title}</h2>
+        <div className="space-y-3">
+          <div className="space-y-2">
+            <div className="flex items-center text-sm">
+              <div className="w-4 text-gray-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+              </div>
+              <span className="w-12 text-gray-500">Título</span>
+            </div>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              disabled={isPending}
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-gray-300 disabled:opacity-60 disabled:cursor-not-allowed"
+              placeholder="Título da página"
+            />
+          </div>
         </div>
 
         <div className="space-y-3">
@@ -51,8 +81,10 @@ export const ShareFormContent = ({
             <input
               type="text"
               value={url}
-              readOnly
-              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md focus:outline-none text-gray-500 cursor-not-allowed hover:cursor-not-allowed"
+              onChange={(e) => setUrl(e.target.value)}
+              disabled={isPending}
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-gray-300 disabled:opacity-60 disabled:cursor-not-allowed"
+              placeholder="URL da página"
             />
           </div>
         </div>
@@ -105,5 +137,7 @@ interface ShareFormContentProps {
   isPending: boolean
   error: string | null
   setNote: (note: string) => void
+  setTitle: (title: string) => void
+  setUrl: (url: string) => void
   handleSubmit: () => Promise<void>
 }

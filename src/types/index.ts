@@ -113,5 +113,6 @@ export interface ShareFormState {
 export interface ShareFormActions {
   setTitle: (title: string) => void
   setNote: (note: string) => void
+  setUrl: (url: string) => void
   handleSubmit: () => Promise<void>
 }

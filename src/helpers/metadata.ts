@@ -10,7 +10,7 @@ export async function getCurrentPageData(): Promise<PageData | null> {
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
 
     if (tabs.length === 0 || !tabs[0].id) {
-      await showNotification('Não foi possível acessar a aba atual', 'error')
+      await showNotification('Não foi possível acessar a aba atual. Você pode editar manualmente os campos.', 'info')
       return result
     }
 
@@ -33,15 +33,31 @@ export async function getCurrentPageData(): Promise<PageData | null> {
         const metaImageUrl = metaResult.ogImage ?? metaResult.twitterImage
         if (metaImageUrl) result.imageUrl = metaImageUrl
       }
-    } catch {
-      await showNotification('Erro ao extrair metadados da página', 'error')
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+
+      if (
+        errorMessage.includes('Cannot access') ||
+        errorMessage.includes('scripting') ||
+        errorMessage.includes('permission')
+      ) {
+        await showNotification(
+          'Este site pode limitar o acesso a metadados. Você pode editar manualmente os campos.',
+          'info',
+        )
+      } else {
+        await showNotification(
+          'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
+          'info',
+        )
+      }
     }
 
     return result
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
-    await showNotification(`${errorMessage}`, 'error')
-    return null
+    await showNotification(`${errorMessage}. Por favor, preencha os campos manualmente.`, 'error')
+    return { url: '', title: '' }
   }
 }
 

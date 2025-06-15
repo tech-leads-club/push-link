@@ -74,6 +74,7 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
     {
       setTitle: (title: string) => setField('title', title),
       setNote: (note: string) => setField('note', note),
+      setUrl: (url: string) => setField('url', url),
       handleSubmit,
     },
   ]
