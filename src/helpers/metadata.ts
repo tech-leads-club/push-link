@@ -3,17 +3,26 @@ import { showNotification } from '../services/notification.service'
 import { getTabInfo } from '../services/tabs.service'
 import { PageData, PageMetadata } from '../types'
 
-const PERMISSION_ERROR = ['Cannot access', 'scripting', 'permission']
+const getTitle = () => {
+  const query = (selector: string, attribute = 'content') =>
+    document.querySelector(selector)?.getAttribute(attribute) ?? ''
+
+  const documentTitle = document.title
+  const ogTitle = query('meta[property="og:title"]')
+  const twitterTitle = query('meta[name="twitter:title"]')
+
+  const h1Title = document.querySelector('h1')?.textContent?.trim()
+  const headerTitle = document.querySelector('header h1, header h2, header .title')?.textContent?.trim()
+  const metaTitle = query('meta[name="title"]')
+  const itempropTitle = query('meta[itemprop="name"]')
+
+  return documentTitle || ogTitle || twitterTitle || h1Title || headerTitle || metaTitle || itempropTitle || ''
+}
 
 export async function getCurrentPageData(): Promise<PageData | null> {
   try {
     const { url, title } = await getTabInfo()
     const result: PageData = { url, title }
-
-    if (!url) {
-      await showNotification('URL não detectada. Por favor, preencha os campos manualmente.', 'info')
-      return result
-    }
 
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
 
@@ -31,8 +40,7 @@ export async function getCurrentPageData(): Promise<PageData | null> {
       if (scriptResults && scriptResults.length > 0) {
         const [metadata] = scriptResults
         const metaResult = metadata.result as PageMetadata
-
-        result.title = metaResult.ogTitle ?? metaResult.twitterTitle ?? result.title
+        result.title = getTitle()
 
         if (metaResult.ogDescription || metaResult.twitterDescription) {
           result.description = metaResult.ogDescription ?? metaResult.twitterDescription
@@ -40,26 +48,20 @@ export async function getCurrentPageData(): Promise<PageData | null> {
 
         const metaImageUrl = metaResult.ogImage ?? metaResult.twitterImage
         if (metaImageUrl) result.imageUrl = metaImageUrl
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error)
-      const isPermissionRelatedError = PERMISSION_ERROR.some((term) => errorMessage.includes(term))
 
-      if (isPermissionRelatedError) {
-        await showNotification(
-          'Este site pode limitar o acesso a metadados. Você pode editar manualmente os campos.',
-          'info',
-        )
-      } else {
-        await showNotification(
-          'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
-          'info',
-        )
+        if (!result.title || !result.url) {
+          await showNotification(
+            'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
+            'warning',
+          )
+        }
       }
-    }
-
-    if (!result.title || result.title.trim() === '') {
-      result.title = ''
+    } catch {
+      if (result.title && result.url) return result
+      await showNotification(
+        'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
+        'warning',
+      )
     }
 
     return result
@@ -73,19 +75,6 @@ export async function getCurrentPageData(): Promise<PageData | null> {
 export function extractPageMetadata() {
   const query = (selector: string, attribute = 'content') =>
     document.querySelector(selector)?.getAttribute(attribute) ?? ''
-
-  const getTitle = () => {
-    const documentTitle = document.title
-    const ogTitle = query('meta[property="og:title"]')
-    const twitterTitle = query('meta[name="twitter:title"]')
-
-    const h1Title = document.querySelector('h1')?.textContent?.trim()
-    const headerTitle = document.querySelector('header h1, header h2, header .title')?.textContent?.trim()
-    const metaTitle = query('meta[name="title"]')
-    const itempropTitle = query('meta[itemprop="name"]')
-
-    return documentTitle || ogTitle || twitterTitle || h1Title || headerTitle || metaTitle || itempropTitle || ''
-  }
 
   return {
     ogTitle: query('meta[property="og:title"]'),
