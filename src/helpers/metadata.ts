@@ -68,7 +68,7 @@ export async function getCurrentPageData(): Promise<PageData | null> {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     await showNotification(`${errorMessage}. Por favor, preencha os campos manualmente.`, 'error')
-    return { url: '', title: '' }
+    return { url: undefined, title: undefined }
   }
 }
 

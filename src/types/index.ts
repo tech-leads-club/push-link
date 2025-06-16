@@ -5,8 +5,8 @@ export interface InfoRequest {
 }
 
 export interface TabInfoResponse {
-  url: string
-  title: string
+  url?: string
+  title?: string
 }
 
 export interface GetTokenResponse {
@@ -68,10 +68,10 @@ export interface PostData {
 }
 
 export interface PublishPostParams {
-  url: string
-  title: string
   note: string
   imageUrl: string
+  url?: string
+  title?: string
 }
 
 export interface PageMetadata {
@@ -85,8 +85,8 @@ export interface PageMetadata {
 }
 
 export interface PageData {
-  url: string
-  title: string
+  url?: string
+  title?: string
   description?: string
   imageUrl?: string
 }

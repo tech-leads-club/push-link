@@ -5,19 +5,19 @@ import { fetchAuthCookies } from './auth.service'
 export async function getTabInfo(): Promise<TabInfoResponse> {
   try {
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
-    if (tabs.length === 0) return { url: '', title: '' }
+    if (tabs.length === 0) return { url: undefined, title: undefined }
 
     const tab = tabs[0]
 
-    if (!tab.url) return { url: '', title: tab.title || '' }
+    if (!tab.url) return { url: undefined, title: tab.title }
 
     if (!tab.url.startsWith('http://') && !tab.url.startsWith('https://')) {
-      return { url: '', title: tab.title || '' }
+      return { url: undefined, title: tab.title }
     }
 
-    return { url: tab.url, title: tab.title || '' }
+    return { url: tab.url, title: tab.title }
   } catch {
-    return { url: '', title: '' }
+    return { url: undefined, title: undefined }
   }
 }
 
