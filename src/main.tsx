@@ -9,7 +9,7 @@ const root = createRoot(domNode as HTMLElement)
 
 root.render(
   <StrictMode>
-    <div className="bg-gray-900 w-[320px] h-[480px]">
+    <div className="bg-gray-900 w-[320px] h-[510px]">
       <Popup />
     </div>
   </StrictMode>,
