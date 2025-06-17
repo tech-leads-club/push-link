@@ -7,7 +7,7 @@ import { isRedaxiosError } from '../utils/typeguards'
 import { getAuthCookies } from './cookies.service'
 
 export async function publishPost(params: PublishPostParams): Promise<boolean> {
-  if (!params.url || !params.title) throw new Error('URL e título são obrigatórios')
+  if (!params?.url || !params?.title) throw new Error('URL e título são obrigatórios')
 
   const cookies = await getAuthCookies()
 

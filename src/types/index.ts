@@ -5,8 +5,8 @@ export interface InfoRequest {
 }
 
 export interface TabInfoResponse {
-  url: string
-  title: string
+  url?: string
+  title?: string
 }
 
 export interface GetTokenResponse {
@@ -68,10 +68,10 @@ export interface PostData {
 }
 
 export interface PublishPostParams {
-  url: string
-  title: string
   note: string
   imageUrl: string
+  url?: string
+  title?: string
 }
 
 export interface PageMetadata {
@@ -81,11 +81,12 @@ export interface PageMetadata {
   twitterDescription?: string
   ogImage?: string
   twitterImage?: string
+  title?: string
 }
 
 export interface PageData {
-  url: string
-  title: string
+  url?: string
+  title?: string
   description?: string
   imageUrl?: string
 }
@@ -113,5 +114,6 @@ export interface ShareFormState {
 export interface ShareFormActions {
   setTitle: (title: string) => void
   setNote: (note: string) => void
+  setUrl: (url: string) => void
   handleSubmit: () => Promise<void>
 }

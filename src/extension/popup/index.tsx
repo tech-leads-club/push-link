@@ -1,6 +1,7 @@
 import '../global.css'
 
 import { useEffect } from 'react'
+import { initializeContentScript } from '../../content'
 import { useAuthStatus } from '../../hooks/useAuthStatus'
 import { showNotification } from '../../services/notification.service'
 import { Login } from './components/Login'
@@ -11,6 +12,7 @@ export const Popup = () => {
 
   useEffect(() => {
     if (authError) {
+      initializeContentScript()
       showNotification(authError, 'error')
     }
   }, [authError])
