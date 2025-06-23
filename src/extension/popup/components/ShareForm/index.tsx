@@ -3,10 +3,11 @@ import { ShareFormContent } from './ShareFormContent'
 import { SuccessMessage } from './SuccessMessage'
 
 export const ShareForm = () => {
-  const [{ url, title, note, isPending, error, isSuccess }, { setNote, handleSubmit }] = useShareForm()
+  const [{ url, title, note, isPending, error, isSuccess }, { setNote, setTitle, setUrl, handleSubmit }] =
+    useShareForm()
 
   return (
-    <div className="relative w-full" style={{ minHeight: '400px' }}>
+    <div className="relative w-full min-h-[400px]">
       <div
         className={`w-full transition-all duration-700 ${
           isSuccess
@@ -21,6 +22,8 @@ export const ShareForm = () => {
           isPending={isPending}
           error={error}
           setNote={setNote}
+          setTitle={setTitle}
+          setUrl={setUrl}
           handleSubmit={handleSubmit}
         />
       </div>
