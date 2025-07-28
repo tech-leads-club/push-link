@@ -5,12 +5,19 @@ import { fetchAuthCookies } from './auth.service'
 export async function getTabInfo(): Promise<TabInfoResponse> {
   try {
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
-    if (tabs.length === 0) throw new Error('Nenhuma aba ativa encontrada')
+    if (tabs.length === 0) return { url: undefined, title: undefined }
+
     const tab = tabs[0]
-    if (!tab.url) throw new Error('A aba ativa não possui URL')
-    return { url: tab.url, title: tab.title ?? '' }
-  } catch (error) {
-    throw new Error(`Erro ao obter informações: ${error instanceof Error ? error.message : String(error)}`)
+
+    if (!tab.url) return { url: undefined, title: tab.title }
+
+    if (!tab.url.startsWith('http://') && !tab.url.startsWith('https://')) {
+      return { url: undefined, title: tab.title }
+    }
+
+    return { url: tab.url, title: tab.title }
+  } catch {
+    return { url: undefined, title: undefined }
   }
 }
 
