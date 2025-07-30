@@ -82,6 +82,16 @@ O Vite irá monitorar as alterações e atualizar a build automaticamente.
 2. Clique em **Carregar BCP temporário...**.
 3. Selecione o arquivo `manifest.json` dentro da pasta `dist_firefox`.
 
+## Erros Comuns
+
+### Não é possível logar no Firefox
+
+Esse é um erro que acontece quando algum outro add-on bloqueia o acesso aos
+cookies de sessão do Circle.
+
+Add-ons que causam esse problema:
+- [Facebook Container](https://addons.mozilla.org/en-US/firefox/addon/facebook-container/). Solução: nas configurações do add-on, remova o site da comunidade `www.techleads.club` do container.
+
 ## 💬 Contribua
 
 Sugestões, melhorias e pull requests são bem-vindos! Sinta-se à vontade para contribuir com o projeto.
