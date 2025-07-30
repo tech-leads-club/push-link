@@ -21,13 +21,16 @@ const getTitle = () => {
 }
 
 export async function getCurrentPageData(): Promise<PageData | null> {
-  const errorMessage = 'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.'
+  const message = {
+    cannotReadMeatadata: 'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
+    cannotAccessTab: 'Não foi possível acessar a aba atual. Você pode editar manualmente os campos.',
+  }
 
   try {
     const { url, title } = await getTabInfo()
 
     if (!url) {
-      await showNotification(errorMessage, 'warning')
+      await showNotification(message.cannotAccessTab, 'info')
 
       return { url: undefined, title: undefined }
     }
@@ -37,7 +40,7 @@ export async function getCurrentPageData(): Promise<PageData | null> {
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
 
     if (tabs.length === 0 || !tabs[0].id) {
-      await showNotification('Não foi possível acessar a aba atual. Você pode editar manualmente os campos.', 'info')
+      await showNotification(message.cannotAccessTab, 'info')
       return result
     }
 
@@ -60,12 +63,12 @@ export async function getCurrentPageData(): Promise<PageData | null> {
         if (metaImageUrl) result.imageUrl = metaImageUrl
 
         if (!result.title || !result.url) {
-          await showNotification(errorMessage, 'warning')
+          await showNotification(message.cannotReadMeatadata, 'warning')
         }
       }
     } catch {
       if (result.title && result.url) return result
-      await showNotification(errorMessage, 'warning')
+      await showNotification(message.cannotReadMeatadata, 'warning')
     }
 
     return result
