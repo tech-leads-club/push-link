@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill'
 import { showNotification } from '../services/notification.service'
 import { getTabInfo } from '../services/tabs.service'
 import { PageData, PageMetadata } from '../types'
+import { removeMarketingParams } from './url'
 
 const getTitle = () => {
   const query = (selector: string, attribute = 'content') =>
@@ -20,10 +21,19 @@ const getTitle = () => {
 }
 
 export async function getCurrentPageData(): Promise<PageData | null> {
+  const errorMessage = 'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.'
+
   try {
     const { url, title } = await getTabInfo()
-    const result: PageData = { url, title }
 
+    if (!url) {
+      await showNotification(errorMessage, 'warning')
+
+      return { url: undefined, title: undefined }
+    }
+
+    const cleanedUrl = removeMarketingParams(url)
+    const result: PageData = { url: cleanedUrl, title }
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
 
     if (tabs.length === 0 || !tabs[0].id) {
@@ -50,18 +60,12 @@ export async function getCurrentPageData(): Promise<PageData | null> {
         if (metaImageUrl) result.imageUrl = metaImageUrl
 
         if (!result.title || !result.url) {
-          await showNotification(
-            'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
-            'warning',
-          )
+          await showNotification(errorMessage, 'warning')
         }
       }
     } catch {
       if (result.title && result.url) return result
-      await showNotification(
-        'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
-        'warning',
-      )
+      await showNotification(errorMessage, 'warning')
     }
 
     return result
