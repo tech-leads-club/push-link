@@ -21,7 +21,7 @@ export function useAuthStatus() {
           )
         }
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido'
+        const errorMessage = error instanceof Error ? error.message : 'Erro de conexão ou inesperado'
         setIsLoggedIn(false)
         setAuthError(`Erro ao verificar autenticação: ${errorMessage}`)
       }
