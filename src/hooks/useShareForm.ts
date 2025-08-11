@@ -75,7 +75,10 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
         dispatch({ type: 'SET_ERROR', error: 'Falha ao publicar o post' })
       }
     } catch (err) {
-      dispatch({ type: 'SET_ERROR', error: err instanceof Error ? err.message : 'Erro desconhecido' })
+      dispatch({
+        type: 'SET_ERROR',
+        error: err instanceof Error ? err.message : 'Erro inesperado. Tente novamente ou contate o suporte',
+      })
     } finally {
       dispatch({ type: 'SET_PENDING', isPending: false })
     }
