@@ -4,22 +4,6 @@ import { getTabInfo } from '../services/tabs.service'
 import { PageData, PageMetadata } from '../types'
 import { removeMarketingParams } from './url'
 
-const getTitle = () => {
-  const query = (selector: string, attribute = 'content') =>
-    document.querySelector(selector)?.getAttribute(attribute) ?? ''
-
-  const documentTitle = document.title
-  const ogTitle = query('meta[property="og:title"]')
-  const twitterTitle = query('meta[name="twitter:title"]')
-
-  const h1Title = document.querySelector('h1')?.textContent?.trim()
-  const headerTitle = document.querySelector('header h1, header h2, header .title')?.textContent?.trim()
-  const metaTitle = query('meta[name="title"]')
-  const itempropTitle = query('meta[itemprop="name"]')
-
-  return documentTitle || ogTitle || twitterTitle || h1Title || headerTitle || metaTitle || itempropTitle || ''
-}
-
 export async function getCurrentPageData(): Promise<PageData | null> {
   const message = {
     cannotReadMeatadata: 'Não foi possível extrair todos os metadados. Você pode editar manualmente os campos.',
@@ -55,8 +39,8 @@ export async function getCurrentPageData(): Promise<PageData | null> {
         const metaResult = metadata.result as PageMetadata
         result.title = metaResult.title || result.title
 
-        if (metaResult.ogDescription || metaResult.twitterDescription) {
-          result.description = metaResult.ogDescription ?? metaResult.twitterDescription
+        if (metaResult.ogDescription || metaResult.twitterDescription || metaResult.description) {
+          result.description = metaResult.ogDescription ?? metaResult.twitterDescription ?? metaResult.description
         }
 
         const metaImageUrl = metaResult.ogImage ?? metaResult.twitterImage
@@ -82,6 +66,17 @@ export async function getCurrentPageData(): Promise<PageData | null> {
 export function extractPageMetadata() {
   const query = (selector: string, attribute = 'content') =>
     document.querySelector(selector)?.getAttribute(attribute) ?? ''
+
+  const getTitle = () => {
+    const documentTitle = document.title
+    const ogTitle = query('meta[property="og:title"]')
+    const twitterTitle = query('meta[name="twitter:title"]')
+    const h1Title = document.querySelector('h1')?.textContent?.trim()
+    const headerTitle = document.querySelector('header h1, header h2, header .title')?.textContent?.trim()
+    const metaTitle = query('meta[name="title"]')
+    const itempropTitle = query('meta[itemprop="name"]')
+    return documentTitle || ogTitle || twitterTitle || h1Title || headerTitle || metaTitle || itempropTitle || ''
+  }
 
   return {
     ogTitle: query('meta[property="og:title"]'),
