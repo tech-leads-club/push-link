@@ -45,12 +45,19 @@ export const ShareFormContent = ({
                 </svg>
               </div>
               <span className="w-12 text-gray-500">Título</span>
+              <span
+                className={`ml-auto text-xs ${title.length > 255 ? 'text-red-500' : title.length > 230 ? 'text-yellow-400' : 'text-gray-500'}`}
+                title="Limite de 255 caracteres"
+              >
+                {title.length}/255
+              </span>
             </div>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               disabled={isPending}
+              maxLength={255}
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-gray-300 disabled:opacity-60 disabled:cursor-not-allowed"
               placeholder="Título da página"
             />
