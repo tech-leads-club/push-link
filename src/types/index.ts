@@ -36,14 +36,16 @@ export interface MessageOptions {
   duration?: number
 }
 
+export interface TiptapMark {
+  type: string
+  attrs?: Record<string, unknown>
+}
+
 export interface TiptapContent {
   type: string
   content?: TiptapContent[]
   text?: string
-  marks?: {
-    type: string
-    attrs?: Record<string, unknown>
-  }[]
+  marks?: TiptapMark[]
 }
 
 export interface TiptapDocument {
@@ -75,13 +77,14 @@ export interface PublishPostParams {
 }
 
 export interface PageMetadata {
-  ogTitle?: string
-  twitterTitle?: string
+  description?: string
   ogDescription?: string
-  twitterDescription?: string
   ogImage?: string
-  twitterImage?: string
+  ogTitle?: string
   title?: string
+  twitterDescription?: string
+  twitterImage?: string
+  twitterTitle?: string
 }
 
 export interface PageData {
