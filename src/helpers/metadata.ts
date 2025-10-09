@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill'
 import { showNotification } from '../services/notification.service'
 import { getTabInfo } from '../services/tabs.service'
 import { PageData, PageMetadata } from '../types'
+import { sanitizeTitle } from './title'
 import { removeMarketingParams } from './url'
 
 export async function getCurrentPageData(): Promise<PageData | null> {
@@ -20,7 +21,7 @@ export async function getCurrentPageData(): Promise<PageData | null> {
     }
 
     const cleanedUrl = removeMarketingParams(url)
-    const result: PageData = { url: cleanedUrl, title }
+    const result: PageData = { url: cleanedUrl, title: sanitizeTitle(title) }
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
 
     if (tabs.length === 0 || !tabs[0].id) {
@@ -37,7 +38,8 @@ export async function getCurrentPageData(): Promise<PageData | null> {
       if (scriptResults && scriptResults.length > 0) {
         const [metadata] = scriptResults
         const metaResult = metadata.result as PageMetadata
-        result.title = metaResult.title || result.title
+        const sanitizedMetaTitle = sanitizeTitle(metaResult.title)
+        result.title = sanitizedMetaTitle || result.title
 
         if (metaResult.ogDescription || metaResult.twitterDescription || metaResult.description) {
           result.description = metaResult.ogDescription ?? metaResult.twitterDescription ?? metaResult.description
