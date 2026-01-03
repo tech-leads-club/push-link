@@ -19,24 +19,22 @@ browser.runtime.onInstalled.addListener(async () => {
   browser.contextMenus.create({
     id: 'share-selected-text',
     title: 'Compartilhar com Tech Leads Club',
-    contexts: ['selection'],
+    contexts: ['all'],
   })
 })
 
 browser.contextMenus.onClicked.addListener(async (info, _tab) => {
-  if (info.menuItemId === 'share-selected-text') {
-    try {
-      await browser.storage.local.set({ selectedText: info.selectionText })
+  try {
+    await browser.storage.local.set({ selectedText: info.selectionText })
 
-      try {
-        await browser.action.openPopup()
-      } catch {
-        await showNotification('Texto selecionado! Clique no ícone da extensão para compartilhar.', 'info')
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error)
-      await showNotification(`Erro ao processar texto selecionado: ${errorMessage}`, 'error')
+    try {
+      await browser.action.openPopup()
+    } catch {
+      await showNotification('Texto selecionado! Clique no ícone da extensão para compartilhar.', 'info')
     }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    await showNotification(`Erro ao processar texto selecionado: ${errorMessage}`, 'error')
   }
 })
 
