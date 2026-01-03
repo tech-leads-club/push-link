@@ -27,9 +27,7 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
               },
             })
 
-            if (selectedText) {
-              await browser.storage.local.remove('selectedText')
-            }
+            await browser.storage.local.remove('selectedText')
             return
           }
 
@@ -43,9 +41,7 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
             },
           })
 
-          if (selectedText) {
-            await browser.storage.local.remove('selectedText')
-          }
+          await browser.storage.local.remove('selectedText')
         }
       } catch {
         dispatch({
