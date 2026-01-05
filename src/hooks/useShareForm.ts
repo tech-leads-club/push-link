@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react'
+import browser from 'webextension-polyfill'
 import { getCurrentPageData } from '../helpers/metadata'
 import { publishPost } from '../services/post.service'
 import type { ShareFormActions, ShareFormState } from '../types'
@@ -9,6 +10,9 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
   useEffect(() => {
     const loadPageData = async () => {
       try {
+        const storage = await browser.storage.local.get('selectedText')
+        const selectedText = typeof storage.selectedText === 'string' ? storage.selectedText : null
+
         const pageData = await getCurrentPageData()
 
         if (pageData) {
@@ -18,10 +22,12 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
               data: {
                 url: pageData.url || '',
                 title: pageData.title || '',
-                note: '',
+                note: selectedText || '',
                 imageUrl: '',
               },
             })
+
+            await browser.storage.local.remove('selectedText')
             return
           }
 
@@ -30,10 +36,12 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
             data: {
               url: pageData.url,
               title: pageData.title,
-              note: pageData.description ? `${pageData.description}\n\n` : '',
+              note: selectedText || (pageData.description ? `${pageData.description}\n\n` : ''),
               imageUrl: pageData.imageUrl ?? '',
             },
           })
+
+          await browser.storage.local.remove('selectedText')
         }
       } catch {
         dispatch({

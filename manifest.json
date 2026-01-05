@@ -8,16 +8,8 @@
       "id": "techleads@techleads.club"
     }
   },
-  "host_permissions": [
-    "https://www.techleads.club/*",
-    "https://app.circle.so/api/*"
-  ],
-  "permissions": [
-    "activeTab",
-    "tabs",
-    "cookies",
-    "scripting"
-  ],
+  "host_permissions": ["https://www.techleads.club/*", "https://app.circle.so/api/*"],
+  "permissions": ["activeTab", "tabs", "cookies", "scripting", "contextMenus", "storage"],
   "background": {
     "service_worker": "src/background.ts",
     "type": "module"
@@ -27,14 +19,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "http://*/*",
-        "https://*/*",
-        "<all_urls>"
-      ],
-      "js": [
-        "src/content.ts"
-      ]
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "js": ["src/content.ts"]
     }
   ],
   "options_page": "options.html",
