@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill'
+import { sanitizeTitle } from '../helpers/title'
 import type { TabInfoResponse } from '../types'
 import { fetchAuthCookies } from './auth.service'
 
@@ -9,13 +10,15 @@ export async function getTabInfo(): Promise<TabInfoResponse> {
 
     const tab = tabs[0]
 
-    if (!tab.url) return { url: undefined, title: tab.title }
+    const title = sanitizeTitle(tab.title)
+
+    if (!tab.url) return { url: undefined, title }
 
     if (!tab.url.startsWith('http://') && !tab.url.startsWith('https://')) {
-      return { url: undefined, title: tab.title }
+      return { url: undefined, title }
     }
 
-    return { url: tab.url, title: tab.title }
+    return { url: tab.url, title }
   } catch {
     return { url: undefined, title: undefined }
   }
