@@ -11,13 +11,12 @@ Extensão de navegador para facilitar o compartilhamento de links na comunidade 
 
 ## 🛠️ Instalação e Build
 
-Este projeto utiliza [`yarn`](https://yarnpkg.com/) ou [`npm`](https://www.npmjs.com/) como gerenciador de pacotes e [`Vite`](https://vitejs.dev/) para build.
+Este projeto utiliza [`yarn`](https://yarnpkg.com/) como gerenciador de pacotes e [`Vite`](https://vitejs.dev/) para build.
 
 ### 1. Instale as dependências
 
 ```bash
 yarn install
-npm install
 ```
 
 ### 2. Compile para o navegador desejado
@@ -26,7 +25,6 @@ npm install
 
 ```bash
 yarn build:chrome-edge
-npm run build:chrome-edge
 ```
 
 Os arquivos compilados estarão na pasta `dist_chrome`.
@@ -35,7 +33,6 @@ Os arquivos compilados estarão na pasta `dist_chrome`.
 
 ```bash
 yarn build:firefox
-npm run build:firefox
 ```
 
 Os arquivos compilados estarão na pasta `dist_firefox`.
@@ -48,15 +45,12 @@ Durante o desenvolvimento, utilize o modo dev para facilitar testes e ver altera
 
 ```bash
 yarn dev:chrome-edge
-npm run dev:chrome-edge
 ```
 
 **Para Mozilla Firefox:**
 
 ```bash
 yarn dev:firefox
-npm run dev:firefox
-```
 
 O Vite irá monitorar as alterações e atualizar a build automaticamente.
 
