@@ -1,0 +1,61 @@
+name: Release to Browser Stores
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no actual publish)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .tool-versions
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Chrome Extension
+        run: yarn build:chrome-edge
+
+      - name: Build Firefox Extension
+        run: yarn build:firefox
+
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Zip Chrome extension
+        run: |
+          cd dist_chrome_edge
+          zip -r ../dist/extension-chrome.zip ./*
+
+      - name: Zip Firefox extension
+        run: |
+          cd dist_firefox
+          zip -r ../dist/extension-firefox.zip ./*
+
+      - name: Publish to stores
+        run: npx publish-browser-extension
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          # Chrome Web Store
+          CHROME_ZIP: dist/extension-chrome.zip
+          CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          # Firefox Add-ons
+          FIREFOX_ZIP: dist/extension-firefox.zip
+          FIREFOX_EXTENSION_ID: ${{ secrets.FIREFOX_EXTENSION_ID }}
+          FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+          FIREFOX_CHANNEL: listed
