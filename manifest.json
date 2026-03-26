@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Push Link",
   "description": "Essa extensão foi criada para facilitar o compartilhamento de links na comunidade Tech Leads Club",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "browser_specific_settings": {
     "gecko": {
       "id": "techleads@techleads.club"
