@@ -2,7 +2,16 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2023"]
+    "lib": ["ES2023"],
+    "types": ["node"]
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts",
+    "vite.config.base.ts",
+    "vite.config.browser.ts",
+    "vite.config.chrome-edge.ts",
+    "vite.config.firefox.ts",
+    "postcss.config.js",
+    "tailwind.config.js"
+  ]
 }
