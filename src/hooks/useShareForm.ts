@@ -56,7 +56,7 @@ export function useShareForm(): [ShareFormState, ShareFormActions] {
       }
     }
 
-    loadPageData()
+    void loadPageData()
   }, [])
 
   const handleSubmit = async (): Promise<void> => {

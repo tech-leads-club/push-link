@@ -14,7 +14,7 @@ export const ShareFormContent = ({
 }: ShareFormContentProps) => {
   useEffect(() => {
     if (error) {
-      showNotification(error, 'error')
+      void showNotification(error, 'error')
     }
   }, [error])
 
@@ -126,7 +126,7 @@ export const ShareFormContent = ({
         </div>
 
         <button
-          onClick={handleSubmit}
+          onClick={() => void handleSubmit()}
           disabled={isPending || !url.trim() || !title.trim()}
           className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300 font-medium disabled:opacity-60 disabled:cursor-not-allowed disabled:bg-blue-600"
         >
