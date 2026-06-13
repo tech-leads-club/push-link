@@ -16,6 +16,12 @@ export default [
         ...globals.node,
       },
       parser: typescriptParser,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ['vite.config*.ts', 'postcss.config.js', 'tailwind.config.js'],
+        },
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     plugins: {
       'react-hooks': reactHooks,
@@ -25,9 +31,10 @@ export default [
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      ...typescriptEslint.configs['recommended-type-checked'].rules,
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'no-console': 'error',
-      'no-unused-vars': ['warn', { args: 'none' }],
+      'no-unused-vars': 'off',
       'prettier/prettier': ['error', { endOfLine: 'auto' }, { usePrettierrc: true }],
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
