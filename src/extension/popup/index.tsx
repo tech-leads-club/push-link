@@ -12,8 +12,8 @@ export const Popup = () => {
 
   useEffect(() => {
     if (authError) {
-      initializeContentScript()
-      showNotification(authError, 'error')
+      void initializeContentScript()
+      void showNotification(authError, 'error')
     }
   }, [authError])
 

@@ -27,7 +27,7 @@ export function useAuthStatus() {
       }
     }
 
-    checkAuthStatus()
+    void checkAuthStatus()
   }, [])
 
   return { isLoggedIn, authError }

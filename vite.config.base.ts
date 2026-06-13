@@ -1,4 +1,3 @@
-import { ManifestV3Export } from '@crxjs/vite-plugin'
 import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
@@ -10,7 +9,7 @@ import pkg from './package.json'
 export const baseManifest = {
   ...manifest,
   version: pkg.version,
-} as ManifestV3Export
+}
 
 export default defineConfig({
   plugins: [

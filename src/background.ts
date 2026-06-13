@@ -4,42 +4,48 @@ import { fetchAuthCookies } from './services/auth.service'
 import { showNotification } from './services/notification.service'
 import { handleTabUpdate } from './services/tabs.service'
 
-browser.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
-  try {
-    await handleTabUpdate(tabId, changeInfo)
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error)
-    await showNotification(`Erro ao processar atualização da aba: ${errorMessage}`, 'error')
-  }
-})
-
-browser.runtime.onInstalled.addListener(async () => {
-  await showNotification('Tech Leads Club - Links Share extension instalado com sucesso!', 'info')
-
-  browser.contextMenus.create({
-    id: 'share-selected-text',
-    title: 'Compartilhar com Tech Leads Club',
-    contexts: ['all'],
-  })
-})
-
-browser.contextMenus.onClicked.addListener(async (info, _tab) => {
-  try {
-    await browser.storage.local.set({ selectedText: info.selectionText })
-
+browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  void (async () => {
     try {
-      await browser.action.openPopup()
-    } catch {
-      await showNotification('Texto selecionado! Clique no ícone da extensão para compartilhar.', 'info')
+      await handleTabUpdate(tabId, changeInfo)
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      await showNotification(`Erro ao processar atualização da aba: ${errorMessage}`, 'error')
     }
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error)
-    await showNotification(`Erro ao processar texto selecionado: ${errorMessage}`, 'error')
-  }
+  })()
+})
+
+browser.runtime.onInstalled.addListener(() => {
+  void (async () => {
+    await showNotification('Tech Leads Club - Links Share extension instalado com sucesso!', 'info')
+
+    browser.contextMenus.create({
+      id: 'share-selected-text',
+      title: 'Compartilhar com Tech Leads Club',
+      contexts: ['all'],
+    })
+  })()
+})
+
+browser.contextMenus.onClicked.addListener((info, _tab) => {
+  void (async () => {
+    try {
+      await browser.storage.local.set({ selectedText: info.selectionText })
+
+      try {
+        await browser.action.openPopup()
+      } catch {
+        await showNotification('Texto selecionado! Clique no ícone da extensão para compartilhar.', 'info')
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      await showNotification(`Erro ao processar texto selecionado: ${errorMessage}`, 'error')
+    }
+  })()
 })
 
 browser.runtime.onMessage.addListener((request: unknown, _sender, sendResponse) => {
-  ;(async () => {
+  void (async () => {
     try {
       if (isValidRequest(request, 'getCookie')) {
         const response = await fetchAuthCookies()
