@@ -4,10 +4,11 @@
   "version": "1.7.0",
   "type": "module",
   "scripts": {
-    "build:chrome-edge": "tsc && vite build --config vite.config.chrome-edge.ts",
-    "build:firefox": "tsc && vite build --config vite.config.firefox.ts",
-    "dev:chrome-edge": "tsc && vite build --watch --config vite.config.chrome-edge.ts",
-    "dev:firefox": "tsc && vite build --watch --config vite.config.firefox.ts",
+    "typecheck": "tsc --noEmit",
+    "build:chrome-edge": "tsc --noEmit && vite build --config vite.config.chrome-edge.ts",
+    "build:firefox": "tsc --noEmit && vite build --config vite.config.firefox.ts",
+    "dev:chrome-edge": "vite build --watch --config vite.config.chrome-edge.ts",
+    "dev:firefox": "vite build --watch --config vite.config.firefox.ts",
     "lint": "eslint .",
     "preview": "vite preview"
   },
